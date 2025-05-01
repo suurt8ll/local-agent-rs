@@ -1,0 +1,61 @@
+# pyproject.toml for python-proton-vpn-local-agent
+[build-system]
+requires = ["maturin==1.8.3"]
+build-backend = "maturin"
+
+[project]
+name = "local_agent"
+version = "1.4.5"
+description = "Python bindings for the Proton VPN Local Agent (Rust implementation)"
+# No explicit LICENSE file found in repository as of analysis date.
+license = { text = "LicenseRef-UNKNOWN" }
+readme = "../README.md" # Relative path from this pyproject.toml to the root README
+requires-python = ">=3.8" # Based on pyo3 abi3-py38 feature in Cargo.toml
+keywords = ["proton", "protonvpn", "vpn", "local-agent", "rust"]
+classifiers = [
+    # Based on abi3-py38 and common Python versions
+    "Development Status :: 5 - Production/Stable", # Assuming based on version > 1.0
+    "Intended Audience :: Developers",
+    # TODO: Tentative based on other Proton projects, uncomment if confirmed
+    # "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: POSIX :: Linux", # Build scripts and context point to Linux
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython", # Required for abi3
+    "Programming Language :: Rust",
+    "Topic :: Internet :: VPN",
+    "Topic :: System :: Networking",
+    # If type hints are provided (pyo3 generates some)
+    "Typing :: Typed",
+]
+
+# No runtime Python dependencies identified from source/tests
+dependencies = []
+
+[project.optional-dependencies]
+# Dependencies needed only for running tests
+test = [
+    "pytest",
+    "pytest-asyncio",
+]
+
+# Optional: Add project URLs if desired
+# [project.urls]
+# "Homepage" = "https://github.com/ProtonVPN/protonvpn-local-agent-rs" # Link to original repo
+# "Changelog" = "https://github.com/ProtonVPN/protonvpn-local-agent-rs/blob/master/python-proton-vpn-local-agent/versions.yml"
+
+# --- Maturin specific configuration ---
+[tool.maturin]
+# Explicitly enable the abi3 feature for pyo3 for stable ABI wheels
+# This ensures compatibility across Python 3.8+ versions without recompilation
+features = ["pyo3/abi3-py38"]
+# Optional: Specify the binding name if it differs significantly from 'name'
+# bindings = "pyo3" # Default, usually not needed
+# Optional: Specify the module name if maturin cannot infer it correctly
+# (usually not needed if project.name matches #[pymodule])
+# module-name = "local_agent"
